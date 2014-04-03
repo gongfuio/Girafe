@@ -16,7 +16,7 @@ void drawAxis() {
   PVector origin = new PVector( 0, 0, 0);
   pushMatrix();
   noFill();
-  stroke( 192, 128);
+  stroke( 128, 32, 32);
   triangle3D( origin, axisY, axisZ);
   triangle3D( origin, axisY, axisX);
   triangle3D( origin, axisZ, axisX);
@@ -29,8 +29,9 @@ void drawProdTriangle( float x, float y, float z) {
   PVector sz = new PVector( 0, 0, map( z, 0.0, 1.0, 0.0, width/3));
 
   pushMatrix();
-  fill( 192, 12);
-  stroke( 255);
+  fill( 192, 192, 192, 25);
+  // noFill();
+  stroke( 255, 255, 255);
   triangle3D( sx, sy, sz);
   popMatrix();
 }
@@ -54,5 +55,9 @@ void draw() {
 
   drawAxis();
   drawProdTriangle( offsetX, offsetY, 1.0);
+  drawProdTriangle( 0.25, 0.25, 0.25);
+  drawProdTriangle( 0.5, 0.5, 0.5);
+  drawProdTriangle( 0.75, 0.75, 0.75);
+  drawProdTriangle( 1.0, 1.0, 1.0);
 }
 
