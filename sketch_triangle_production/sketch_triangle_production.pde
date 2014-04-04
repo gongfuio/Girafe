@@ -5,6 +5,7 @@
   
 float offsetX, offsetY;
 PVector s1, s2, s3; 
+PFont fontForAxis;
 
 // Affiche un triangle dans l'espace 3D sur les trois sommets s1, s2 et s3,
 // ces derniers étant des tuples contenant des coordonnées ‹x;y;z› */
@@ -16,25 +17,32 @@ void triangle3D( PVector s1, PVector s2, PVector s3) {
   endShape( CLOSE);
 }
 
-// Affiche un jeu d'axes X, Y et Z
+// Affiche un jeu d'axes correspondant aux 3 contraintes
+// sur les axes X, -Y et Z du système de coordonnées,
+// ainsi que les libellés des contraintes
 void drawAxis() {
-  PVector axisX = new PVector( width/3 + 10, 0, 0);
-  PVector axisY = new PVector( 0, -height/3 - 10, 0);
-  PVector axisZ = new PVector( 0, 0, width/3 + 10);
+  PVector axisConstraint1 = new PVector( width/3 + 10, 0, 0);
+  PVector axisConstraint2 = new PVector( 0, -height/3 - 10, 0);
+  PVector axisConstraint3 = new PVector( 0, 0, width/3 + 10);
   PVector origin = new PVector( 0, 0, 0);
   pushMatrix();
   noFill();
-  stroke( 128, 32, 32);  // Rouge foncé, 100% opacité 
-  triangle3D( origin, axisY, axisZ);
-  triangle3D( origin, axisY, axisX);
-  triangle3D( origin, axisZ, axisX);
+  stroke( 96, 32, 32);  // Rouge foncé, 100% opacité 
+  triangle3D( origin, axisConstraint2, axisConstraint3);
+  triangle3D( origin, axisConstraint2, axisConstraint1);
+  triangle3D( origin, axisConstraint3, axisConstraint1);
+  textFont( fontForAxis);
+  fill( 255);
+  text( "Good",  axisConstraint1.x + 10, axisConstraint1.y, axisConstraint1.z);
+  text( "Cheap", axisConstraint2.x, axisConstraint2.y - 10, axisConstraint2.z);
+  text( "Fast",  axisConstraint3.x, axisConstraint3.y, axisConstraint3.z + 10);
   popMatrix();
 }
 
 // Affiche un ‹Project Management Triangle› sur trois sommets placés
-// sur les axes X, Y et Z à une hauteur proportionnelle aux valeurs
-// des arguments x, y et z. Ces derniers doivent contenir une valeur
-// entre 0.0 et 1.0.
+// sur les axes des contraintes, à une hauteur proportionnelle aux
+// valeurs des arguments x, y et z. Ceux-ci doivent contenir une
+// valeur entre 0.0 et 1.0.
 void drawProdTriangle( float x, float y, float z) {
   PVector sx = new PVector( map( x, 0.0, 1.0, 0.0, width/3), 0, 0);
   PVector sy = new PVector( 0, - map( y, 0.0, 1.0, 0.0, height/3), 0);
@@ -52,11 +60,12 @@ void setup() {
   size( 600, 600, P3D);
   smooth();
   lights();
+  fontForAxis = loadFont( "AvenirNextCondensed-Heavy-24.vlw");
 }
 
 void draw() {
   // Fond rouge foncé, avec 15% transparence
-  background( 80, 32, 32, 15);
+  background( 128, 0, 0, 15);
   
   // Déplace origine du système de coordonnées au centre du canevas 
   translate( width/2, height/2, 0);
