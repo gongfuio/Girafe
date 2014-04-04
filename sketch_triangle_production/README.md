@@ -10,5 +10,8 @@ You are given the options of Fast, Good and Cheap, and told to pick any two. Her
 * Design something _quickly_ and _cheaply_, but it will not be of _high quality_.
 * Design something with _high quality_ and _cheaply_, but it will take a relatively _long time_. [2] »
 
+\[1\]: [Erik Bethke (2003) _Game Development and Production_ p.65][1]
+\[2\]: [Project management triangle – from Wikipedia][2]
+
 [1]: http://books.google.ch/books?id=G7IknwEACAAJ "Erik Bethke (2003). Game Development and Production. p.65."
-[2]: http://en.wikipedia.org/wiki/Project_management_triangle#Example "Project management triangle – Wikipedia"
+[2]: http://en.wikipedia.org/wiki/Project_management_triangle#Example "Project management triangle – from Wikipedia"
