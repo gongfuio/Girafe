@@ -1,6 +1,6 @@
 Une représentation interactive d'un ‹Project Management Triangle› avec Processing.
 
-![We offer 3 kinds of services: Good-Cheap-Fast, but you can only pick two](data/good-cheap-fast.png)
+<img src="data/good-cheap-fast.png" height="170" alt="We offer 3 kinds of services: Good-Cheap-Fast, but you can only pick two" > <img src="data/good-cheap-fast-interactive.png" height="170" alt="Production Triangle in 3D and interactive" >
 
 « The ‹Project Management Triangle› (called also _Triple Constraint_ or the _Iron Triangle_) is a model of the constraints of project management. It is a graphic aid where the three attributes show on the corners of the triangle to show opposition. It is useful to help with intentionally choosing project biases, or analyzing the goals of a project. [1]
 
@@ -10,8 +10,8 @@ You are given the options of Fast, Good and Cheap, and told to pick any two. Her
 * Design something _quickly_ and _cheaply_, but it will not be of _high quality_.
 * Design something with _high quality_ and _cheaply_, but it will take a relatively _long time_. [2] »
 
-\[1\]: [Erik Bethke (2003) _Game Development and Production_ p.65][1]
+\[1\]: [Erik Bethke (2003) _Game Development and Production_ p.65][1]  
 \[2\]: [Project management triangle – from Wikipedia][2]
 
-[1]: http://books.google.ch/books?id=G7IknwEACAAJ "Erik Bethke (2003). Game Development and Production. p.65."
+[1]: http://books.google.ch/books?id=G7IknwEACAAJ "Erik Bethke (2003). Game Development and Production. p.65."  
 [2]: http://en.wikipedia.org/wiki/Project_management_triangle#Example "Project management triangle – from Wikipedia"
