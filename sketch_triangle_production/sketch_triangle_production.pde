@@ -91,5 +91,17 @@ void draw() {
   scenario = scenarios.getScenario();
   drawProdTriangle( scenario);
   drawProdTriangle( interactive);
+
+  // TODO: drawProdTriangleLegend( scenario);
+}
+
+void keyReleased() {
+  if (key == CODED) {
+    if( keyCode == RIGHT) {
+      scenarios.next();
+    } else if( keyCode == LEFT) {
+      scenarios.previous();
+    }
+  }
 }
 
