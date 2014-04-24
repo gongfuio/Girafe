@@ -79,11 +79,11 @@ void draw() {
   
   // Déplace origine du système de coordonnées au centre du canevas 
   translate( width/2, height/2, 0);
+  scale( 0.80);
 
   // Rotation légère de l'ensemble du tracé, pour le voir en perspective
   rotateX( -PI/9);
-  rotateY( -PI/6);
-  scale( 0.80);
+  rotateY( -PI/6 * millis() / 1000);
 
   // Mise à jour du dessin pour tendre vers le scénario cible
   if( freezed) {
