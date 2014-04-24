@@ -76,6 +76,7 @@ void setup() {
 void draw() {
   // Fond rouge foncé, avec 15% transparence
   background( 128, 0, 0, 15);
+  textFont( fontForAxis);
   
   // Déplace origine du système de coordonnées au centre du canevas 
   translate( width/2, height/2, 0);
@@ -83,11 +84,11 @@ void draw() {
 
   // Rotation légère de l'ensemble du tracé, pour le voir en perspective
   rotateX( -PI/9);
-  rotateY( -PI/6 * millis() / 1000);
+  // rotateY( -PI/6 * millis() / 1000);
+  rotateY( -PI/6);
 
   // Mise à jour du dessin pour tendre vers le scénario cible
   if( freezed) {
-    textFont( fontForAxis);
     fill( 224, 32, 32);  // Rouge, 50% opacité
     text( "[paused]", width/4, -height/4, 0.0);
   } else {
@@ -101,6 +102,11 @@ void draw() {
   // des sommets X et Y du triangle selon position du pointeur de la souris
   drawAxis();  
   drawProdTriangle( actual);
+  
+  fill( 255);  // Rouge, 50% opacité
+  textAlign( CENTER);
+  textSize( 56);
+  text( scenarios.getText(), 0, height/3, 0.0);
 }
 
 void keyReleased() {
