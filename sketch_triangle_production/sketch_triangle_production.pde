@@ -1,7 +1,7 @@
 /**
-  * Représentation interactive d'un ‹Project Management Triangle› avec Processing.
-  * cf. https://github.com/gongfuio/Girafe/blob/master/sketch_triangle_production/README.md
-  */
+ * Représentation interactive d'un ‹Project Management Triangle› avec Processing.
+ * cf. https://github.com/gongfuio/Girafe/blob/master/sketch_triangle_production/README.md
+ */
 float offsetX, offsetY;
 PVector s1, s2, s3; 
 PFont fontForAxis;
@@ -37,9 +37,9 @@ void drawAxis() {
   triangle3D( origin, axisConstraintFast, axisConstraintGood);
   textFont( fontForAxis);
   fill( 255);
-  text( "Good",  axisConstraintGood.x + 20.0, axisConstraintGood.y, axisConstraintGood.z);
+  text( "Good", axisConstraintGood.x + 20.0, axisConstraintGood.y, axisConstraintGood.z);
   text( "Cheap", axisConstraintCheap.x, axisConstraintCheap.y - 20.0, axisConstraintCheap.z);
-  text( "Fast",  axisConstraintFast.x, axisConstraintFast.y, axisConstraintFast.z + 20.0);
+  text( "Fast", axisConstraintFast.x, axisConstraintFast.y, axisConstraintFast.z + 20.0);
   popMatrix();
 }
 
@@ -60,13 +60,21 @@ void drawProdTriangle( PVector scenario) {
   popMatrix();
 }
 
+// Affiche légende sous le triangle de production
+void textProdTriangle( String s) {
+  fill( 255);  // Rouge, 50% opacité
+  textAlign( CENTER);
+  textSize( 56);
+  text( s, 0, height/3, 0.0);
+}
+
 // Initialisation du canevas Processing (espace en 3D)
 void setup() {
   size( 800, 800, P3D);
   smooth();
   lights();
   fontForAxis = loadFont( "AvenirNextCondensed-Heavy-24.vlw");
-  
+
   scenarios = new Scenarios();
   actual = new PVector( 0.0, 0.0, 0.0);
   vitesse = 0.05;
@@ -77,21 +85,22 @@ void draw() {
   // Fond rouge foncé, avec 15% transparence
   background( 128, 0, 0, 15);
   textFont( fontForAxis);
-  
-  // Déplace origine du système de coordonnées au centre du canevas 
+
+  // Déplace origine du système de coordonnées au centre du canevas
   translate( width/2, height/2, 0);
   scale( 0.80);
 
   // Rotation légère de l'ensemble du tracé, pour le voir en perspective
+  pushMatrix(); 
   rotateX( -PI/9);
-  // rotateY( -PI/6 * millis() / 1000);
-  rotateY( -PI/6);
+  rotateY( -PI/6 * millis() / 1000);
 
   // Mise à jour du dessin pour tendre vers le scénario cible
-  if( freezed) {
+  if ( freezed) {
     fill( 224, 32, 32);  // Rouge, 50% opacité
     text( "[paused]", width/4, -height/4, 0.0);
-  } else {
+  } 
+  else {
     scenario = scenarios.getScenario();
     direction = PVector.sub( scenario, actual);
     direction.mult( vitesse);
@@ -102,20 +111,19 @@ void draw() {
   // des sommets X et Y du triangle selon position du pointeur de la souris
   drawAxis();  
   drawProdTriangle( actual);
-  
-  fill( 255);  // Rouge, 50% opacité
-  textAlign( CENTER);
-  textSize( 56);
-  text( scenarios.getText(), 0, height/3, 0.0);
+  popMatrix();
+  textProdTriangle( scenarios.getText());
 }
 
 void keyReleased() {
-  if( key == TAB) {
+  if ( key == TAB) {
     freezed = !freezed;
-  } else if( key == CODED) {
-    if( keyCode == RIGHT) {
+  } 
+  else if ( key == CODED) {
+    if ( keyCode == RIGHT) {
       scenarios.next();
-    } else if( keyCode == LEFT) {
+    } 
+    else if ( keyCode == LEFT) {
       scenarios.previous();
     }
   }
