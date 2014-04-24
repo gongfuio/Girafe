@@ -6,7 +6,9 @@ float offsetX, offsetY;
 PVector s1, s2, s3; 
 PFont fontForAxis;
 Scenarios scenarios;
-PVector scenario, interactive;
+PVector scenario, actual, direction;
+float vitesse;
+boolean freezed;
 
 // Affiche un triangle dans l'espace 3D sur les trois sommets s1, s2 et s3,
 // ces derniers étant des tuples contenant des coordonnées ‹x;y;z› */
@@ -28,15 +30,16 @@ void drawAxis() {
   PVector origin = new PVector( 0, 0, 0);
   pushMatrix();
   noFill();
-  stroke( 224, 32, 32, 128);  // Rouge, 50% opacité 
+  stroke( 224, 32, 32, 128);  // Rouge, 50% opacité
+  strokeWeight( 2); 
   triangle3D( origin, axisConstraintCheap, axisConstraintFast);
   triangle3D( origin, axisConstraintCheap, axisConstraintGood);
   triangle3D( origin, axisConstraintFast, axisConstraintGood);
   textFont( fontForAxis);
   fill( 255);
-  text( "Crappy",  axisConstraintGood.x + 20.0, axisConstraintGood.y, axisConstraintGood.z);
-  text( "Expensive", axisConstraintCheap.x, axisConstraintCheap.y - 20.0, axisConstraintCheap.z);
-  text( "Slow",  axisConstraintFast.x, axisConstraintFast.y, axisConstraintFast.z + 20.0);
+  text( "Good",  axisConstraintGood.x + 20.0, axisConstraintGood.y, axisConstraintGood.z);
+  text( "Cheap", axisConstraintCheap.x, axisConstraintCheap.y - 20.0, axisConstraintCheap.z);
+  text( "Fast",  axisConstraintFast.x, axisConstraintFast.y, axisConstraintFast.z + 20.0);
   popMatrix();
 }
 
@@ -51,6 +54,7 @@ void drawProdTriangle( PVector scenario) {
 
   pushMatrix();
   stroke( 255, 255, 255, 255); // Blanc, 100% opacité
+  strokeWeight( 8); 
   fill( 192, 192, 192, 35); // Gris clair, 35% opacité
   triangle3D( sommetGood, sommetCheap, sommetFast);
   popMatrix();
@@ -58,13 +62,15 @@ void drawProdTriangle( PVector scenario) {
 
 // Initialisation du canevas Processing (espace en 3D)
 void setup() {
-  size( 600, 600, P3D);
+  size( 800, 800, P3D);
   smooth();
   lights();
   fontForAxis = loadFont( "AvenirNextCondensed-Heavy-24.vlw");
   
   scenarios = new Scenarios();
-  interactive = new PVector( 0.0, 0.0, 0.0);
+  actual = new PVector( 0.0, 0.0, 0.0);
+  vitesse = 0.05;
+  freezed = false;
 }
 
 void draw() {
@@ -79,24 +85,28 @@ void draw() {
   rotateY( -PI/6);
   scale( 0.80);
 
-  // Mise à jour des contraintes CHEAP et GOOD en fonction de
-  // la position X, Y du pointeur de la souris
-  offsetX = map( mouseX, 0, width, 0.0, 1.0);
-  offsetY = map( mouseY, 0, height, 1.0, 0.0);
-  interactive.set( offsetX, offsetY, ( offsetX + offsetY) / 2.0);
+  // Mise à jour du dessin pour tendre vers le scénario cible
+  if( freezed) {
+    textFont( fontForAxis);
+    fill( 224, 32, 32);  // Rouge, 50% opacité
+    text( "[paused]", width/4, -height/4, 0.0);
+  } else {
+    scenario = scenarios.getScenario();
+    direction = PVector.sub( scenario, actual);
+    direction.mult( vitesse);
+    actual.add( direction);
+  }  
 
   // Tracé des axes et du triangle de production, en variant position 
   // des sommets X et Y du triangle selon position du pointeur de la souris
-  drawAxis();
-  scenario = scenarios.getScenario();
-  drawProdTriangle( scenario);
-  drawProdTriangle( interactive);
-
-  // TODO: drawProdTriangleLegend( scenario);
+  drawAxis();  
+  drawProdTriangle( actual);
 }
 
 void keyReleased() {
-  if (key == CODED) {
+  if( key == TAB) {
+    freezed = !freezed;
+  } else if( key == CODED) {
     if( keyCode == RIGHT) {
       scenarios.next();
     } else if( keyCode == LEFT) {
