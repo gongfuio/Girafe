@@ -30,7 +30,7 @@ void drawAxis() {
   PVector origin = new PVector( 0, 0, 0);
   pushMatrix();
   noFill();
-  stroke( 224, 32, 32, 128);  // Rouge, 50% opacité
+  stroke( 32, 224, 32, 128);  // Rouge, 50% opacité
   strokeWeight( 2); 
   triangle3D( origin, axisConstraintCheap, axisConstraintFast);
   triangle3D( origin, axisConstraintCheap, axisConstraintGood);
@@ -83,7 +83,7 @@ void setup() {
 
 void draw() {
   // Fond rouge foncé, avec 15% transparence
-  background( 128, 0, 0, 15);
+  background( 0, 0, 0);
   textFont( fontForAxis);
 
   // Déplace origine du système de coordonnées au centre du canevas
